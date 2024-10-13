@@ -2,6 +2,7 @@ package com.project.mindly.model.profissional;
 
 
 import com.project.mindly.model.agenda.Agenda;
+import com.project.mindly.model.agendamento.Agendamento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -11,13 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(
-        name = "tb_profissional",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "crp"),
-                @UniqueConstraint(columnNames = "email_prof")
-        }
-)
+@Table(name = "tb_profissional")
 public class Profissional {
 
     @Id
@@ -28,46 +23,40 @@ public class Profissional {
 
     @Column(name = "nome_prof", length = 155, nullable = false)
     @NotNull
-    @Size(min = 1, max = 155)
+    @Size(min = 3, max = 155)
     private String nomeProf;
 
     @Column(name = "crp", length = 10, nullable = false, unique = true)
     @NotNull
-    @Size(min = 1, max = 10)
     private String crp;
 
     @Column(name = "email_prof", length = 155, nullable = false, unique = true)
     @NotNull
     @Email
-    @Size(max = 155)
     private String emailProf;
 
-    @Column(name = "senha", length = 255, nullable = false)
+    @Column(name = "senha",nullable = false)
     @NotNull
     @Size(min = 6, max = 255)
     private String senha;
 
     @Column(name = "descricao_prof", length = 500)
-    @Size(max = 500)
-    private String descricaoProf;
+    private String descProf;
 
-    @Column(name = "especialidade", length = 255)
-    @Size(max = 255)
+    @Column(name = "especialidade")
     private String especialidade;
 
-    @Column(name = "endereco_prof", length = 255)
-    @Size(max = 255)
+    @Column(name = "endereco_prof")
     private String enderecoProf;
 
     @Column(name = "telefone_prof", length = 20)
-    @Size(max = 20)
     private String telefoneProf;
 
-    @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cpfProfAgenda", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Agenda> agendas = new HashSet<>();
 
-    //@OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private Set<Agendamento> agendamentos = new HashSet<>();
+    @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Agendamento> agendamentos = new HashSet<>();
 
     //@OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, orphanRemoval = true)
     //private Set<Sessao> sessoes = new HashSet<>();
@@ -113,12 +102,12 @@ public class Profissional {
         this.senha = senha;
     }
 
-    public @Size(max = 500) String getDescricaoProf() {
-        return descricaoProf;
+    public @Size(max = 500) String getDescProf() {
+        return descProf;
     }
 
-    public void setDescricaoProf(@Size(max = 500) String descricaoProf) {
-        this.descricaoProf = descricaoProf;
+    public void setDescProf(@Size(max = 500) String descricaoProf) {
+        this.descProf = descricaoProf;
     }
 
     public @Size(max = 255) String getEspecialidade() {
@@ -151,5 +140,13 @@ public class Profissional {
 
     public void setAgendas(Set<Agenda> agendas) {
         this.agendas = agendas;
+    }
+
+    public Set<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(Set<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
 }

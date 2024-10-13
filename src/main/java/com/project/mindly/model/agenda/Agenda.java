@@ -2,6 +2,7 @@ package com.project.mindly.model.agenda;
 
 import com.project.mindly.model.profissional.Profissional;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 
 import java.time.LocalTime;
@@ -13,18 +14,24 @@ public class Agenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",nullable = false)
+    @NotNull
     private int id;
 
     @Column(name = "duracao", nullable = false)
+    @NotNull
     private int duracao;
 
     @Column(name = "dia_da_semana", nullable = false, length = 15)
+    @NotNull
     private String diaDaSemana;
 
     @Column(name = "hora_inicio", nullable = false)
+    @NotNull
     private LocalTime horaInicio;
 
     @Column(name = "hora_fim", nullable = false)
+    @NotNull
     private LocalTime horaFim;
 
     @Enumerated(EnumType.STRING)
@@ -33,7 +40,8 @@ public class Agenda {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cpf_prof", nullable = false)
-    private Profissional profissional;
+    @NotNull
+    private Profissional cpfProfAgenda;
 
     public int getId() {
         return id;
@@ -83,11 +91,11 @@ public class Agenda {
         this.ativo = ativo;
     }
 
-    public Profissional getProfissional() {
-        return profissional;
+    public Profissional getCpfProfAgenda() {
+        return cpfProfAgenda;
     }
 
-    public void setProfissional(Profissional profissional) {
-        this.profissional = profissional;
+    public void setCpfProfAgenda(Profissional profissional) {
+        this.cpfProfAgenda = profissional;
     }
 }

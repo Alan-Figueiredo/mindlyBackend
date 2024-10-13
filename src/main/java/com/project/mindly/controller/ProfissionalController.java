@@ -36,7 +36,7 @@ public class ProfissionalController {
             prof.setCrp(prfDto.crp());
             prof.setEmailProf(prfDto.email());
             prof.setSenha(prfDto.senha());
-            prof.setDescricaoProf(prfDto.descricao());
+            prof.setDescProf(prfDto.descricao());
             prof.setEspecialidade(prfDto.esp());
             prof.setEnderecoProf(prfDto.end());
             prof.setTelefoneProf(prfDto.tel());
