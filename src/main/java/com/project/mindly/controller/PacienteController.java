@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/paciente")
+@RequestMapping("paciente")
 public class PacienteController {
 
     private final PacienteRepository pacienteRepository;
@@ -27,9 +27,9 @@ public class PacienteController {
         return pacienteRepository.findAll();
     }
 
-    @GetMapping("/{cpfPaciente}")
-    public ResponseEntity<Paciente> findByIdPaciente(@PathVariable @Valid String cpfPaciente) {
-        return pacienteRepository.findById(cpfPaciente)
+    @GetMapping("/{cpf}")
+    public ResponseEntity<Paciente> findByIdPaciente(@PathVariable @Valid String cpf) {
+        return pacienteRepository.findById(cpf)
                 .map( result -> ResponseEntity.status(HttpStatus.OK).body(result))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
@@ -54,10 +54,11 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PatchMapping("/{cpfPaciente}")
-    public ResponseEntity<Paciente> updatePaciente(@RequestBody @Valid PacienteDtoPatch data, @PathVariable @Valid String cpfPaciente) {
+    @PatchMapping("/{cpf}")
+    public ResponseEntity<Paciente> updatePaciente(@RequestBody @Valid PacienteDtoPatch data,
+                                                   @PathVariable @Valid String cpf) {
 
-        return pacienteRepository.findById(cpfPaciente)
+        return pacienteRepository.findById(cpf)
                 .map(result -> {
                     result.setNomePaciente(data.nome_paciente());
                     result.setEmailPaciente(data.email_paciente());
@@ -72,9 +73,9 @@ public class PacienteController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @DeleteMapping("/{cpfPaciente}")
-    public ResponseEntity<Void> deletePaciente(@PathVariable @Valid String cpfPaciente) {
-        return pacienteRepository.findById(cpfPaciente)
+    @DeleteMapping("/{cpf}")
+    public ResponseEntity<Void> deletePaciente(@PathVariable @Valid String cpf) {
+        return pacienteRepository.findById(cpf)
                 .map(result -> {
                     pacienteRepository.delete(result);
                     return ResponseEntity.status(HttpStatus.NO_CONTENT).<Void>build();
