@@ -71,10 +71,6 @@ public class Agendamento {
         return id;
     }
 
-    public void setId(@NotNull int id) {
-        this.id = id;
-    }
-
     public @NotNull LocalDate getDataAgendamento() {
         return dataAgendamento;
     }

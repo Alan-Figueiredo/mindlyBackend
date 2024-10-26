@@ -45,11 +45,6 @@ public class Sessao {
     public int getId() {
         return id;
     }
-
-    public void setId(@NotNull int id) {
-        this.id = id;
-    }
-
     public @NotNull LocalDate getDataSessao() {
         return dataSessao;
     }
