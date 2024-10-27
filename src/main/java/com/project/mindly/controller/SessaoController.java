@@ -2,6 +2,7 @@ package com.project.mindly.controller;
 
 import com.project.mindly.model.sessao.Sessao;
 import com.project.mindly.model.sessao.SessaoDto;
+import com.project.mindly.model.sessao.SessaoDtoResponse;
 import com.project.mindly.service.PacienteService;
 import com.project.mindly.service.SessaoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,13 +29,13 @@ public class SessaoController {
     }
 
     @GetMapping
-    public List<Sessao> getAllSessao(){
-       List<Sessao> sessao = sessaoService.findAllSessao();
+    public List<SessaoDtoResponse> getAllSessao(){
+       List<SessaoDtoResponse> sessao = sessaoService.findAllSessao();
        logger.info("Total de sessoes retornadas: {}", sessao.size());
        return sessao;
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<Sessao> getByIdSessao(@PathVariable @Valid int id) {
         return sessaoService.findSessaoById(id)
                 .map(result -> ResponseEntity.status(HttpStatus.OK).body(result))

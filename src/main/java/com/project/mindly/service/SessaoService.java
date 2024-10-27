@@ -1,22 +1,23 @@
 package com.project.mindly.service;
 
 import com.project.mindly.model.agendamento.Agendamento;
+import com.project.mindly.model.agendamento.AgendamentoDtoResponse;
 import com.project.mindly.model.paciente.Paciente;
 import com.project.mindly.model.profissional.Profissional;
 import com.project.mindly.model.sessao.Sessao;
 import com.project.mindly.model.sessao.SessaoDto;
+import com.project.mindly.model.sessao.SessaoDtoResponse;
 import com.project.mindly.repository.AgendamentoRepository;
 import com.project.mindly.repository.PacienteRepository;
 import com.project.mindly.repository.ProfissionalRepository;
 import com.project.mindly.repository.SessaoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SessaoService {
@@ -36,8 +37,9 @@ public class SessaoService {
         this.agendamentoRepository = agendamentoRepository;
     }
 
-    public List<Sessao> findAllSessao() {
-        return sessaoRepository.findAll();
+    public List<SessaoDtoResponse> findAllSessao() {
+        List<Sessao> sessao = sessaoRepository.findAll();
+        return sessao.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     public Optional<Sessao> findSessaoById(int id) {
@@ -96,5 +98,26 @@ public class SessaoService {
         Sessao sessao = sessaoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Agendamento não encontrado com ID: " + id));
         sessaoRepository.delete(sessao);
+    }
+
+    private SessaoDtoResponse convertToDto(Sessao savedSessao) {
+
+        SessaoDtoResponse responseDto = new SessaoDtoResponse();
+        responseDto.setId(savedSessao.getId());
+        responseDto.setDataSessao(savedSessao.getDataSessao());
+        responseDto.setQuantidadeTotal(savedSessao.getQnt_total());
+        responseDto.setCpfPaciente(savedSessao.getCpfPacienteSessao().getCpfPaciente());
+        responseDto.setCpfProfissional(savedSessao.getCpfProfSessao().getCpfProf());
+
+        AgendamentoDtoResponse agendamentoDto = new AgendamentoDtoResponse();
+        agendamentoDto.setIdAgendamento(savedSessao.getAgendamentoSessao().getIdAgendamento());
+        agendamentoDto.setDataAgendamento(savedSessao.getAgendamentoSessao().getDataAgendamento());
+        agendamentoDto.setHoraInicio(savedSessao.getAgendamentoSessao().getHoraInicio());
+        agendamentoDto.setDuracao(savedSessao.getAgendamentoSessao().getDuracao());
+        agendamentoDto.setObservacoes(savedSessao.getAgendamentoSessao().getObservacoes());
+        agendamentoDto.setStatus(savedSessao.getAgendamentoSessao().getStatus());
+
+        responseDto.setAgendamento(agendamentoDto);
+        return responseDto;
     }
 }
