@@ -27,7 +27,8 @@ public class PacienteService {
     }
 
     public Optional<Paciente> findPacienteById(String id) {
-        return pacienteRepository.findById(id);
+        return Optional.ofNullable(pacienteRepository.findById(id) //  retorna um Optional ou um Optional.empty()
+                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o CPF: " + id)));
     }
 
     public Paciente savePaciente(PacienteDto data) {

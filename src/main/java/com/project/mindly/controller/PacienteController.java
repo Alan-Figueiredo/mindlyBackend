@@ -43,21 +43,19 @@ public class PacienteController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create") // método base para replicar nos outros
     public ResponseEntity<Paciente> createPaciente(@RequestBody @Valid PacienteDto data) {
         try {
             Paciente paciente = pacienteService.savePaciente(data);
             return ResponseEntity.status(HttpStatus.CREATED).body(paciente);
         } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(null);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (Exception e) {
-            logger.error("Unexpected error occurred", e);
+            logger.error("Ocorreu um erro inesperado", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
 
     @PatchMapping("/{cpf}")
@@ -66,19 +64,22 @@ public class PacienteController {
         try {
             Paciente updatedPaciente = pacienteService.updatePaciente(cpf, data);
             return ResponseEntity.status(HttpStatus.OK).body(updatedPaciente);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            logger.error("Ocorreu um erro inesperado", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> deletePaciente(@PathVariable @Valid String cpf) {
+    public ResponseEntity<String> deletePaciente(@PathVariable @Valid String cpf) {
         try {
             pacienteService.deletePaciente(cpf);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
