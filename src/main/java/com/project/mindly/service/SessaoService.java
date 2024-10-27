@@ -107,6 +107,8 @@ public class SessaoService {
         responseDto.setDataSessao(savedSessao.getDataSessao());
         responseDto.setQuantidadeTotal(savedSessao.getQnt_total());
         responseDto.setCpfPaciente(savedSessao.getCpfPacienteSessao().getCpfPaciente());
+        responseDto.setNomePaciente(savedSessao.getCpfPacienteSessao().getNomePaciente());
+        responseDto.setNomeProfissional(savedSessao.getCpfProfSessao().getNomeProf());
         responseDto.setCpfProfissional(savedSessao.getCpfProfSessao().getCpfProf());
 
         AgendamentoDtoResponse agendamentoDto = new AgendamentoDtoResponse();

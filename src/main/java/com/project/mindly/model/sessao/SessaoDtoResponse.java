@@ -9,7 +9,9 @@ public class SessaoDtoResponse {
     private LocalDate dataSessao;
     private int quantidadeTotal;
     private String cpfProfissional;
+    private String nomeProfissional;
     private String cpfPaciente;
+    private String nomePaciente;
     private AgendamentoDtoResponse agendamento;
 
     public int getId() {
@@ -58,5 +60,21 @@ public class SessaoDtoResponse {
 
     public void setAgendamento(AgendamentoDtoResponse agendamento) {
         this.agendamento = agendamento;
+    }
+
+    public String getNomeProfissional() {
+        return nomeProfissional;
+    }
+
+    public void setNomeProfissional(String nomeProfissional) {
+        this.nomeProfissional = nomeProfissional;
+    }
+
+    public String getNomePaciente() {
+        return nomePaciente;
+    }
+
+    public void setNomePaciente(String nomePaciente) {
+        this.nomePaciente = nomePaciente;
     }
 }
