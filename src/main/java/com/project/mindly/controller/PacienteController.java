@@ -60,8 +60,8 @@ public class PacienteController {
     public ResponseEntity<Paciente> updatePaciente(@RequestBody @Valid PacienteDtoPatch data,
                                                    @PathVariable @Valid String cpf) {
         try {
-            Paciente updatedPaciente = pacienteService.updatePaciente(cpf, data);
-            return ResponseEntity.status(HttpStatus.OK).body(updatedPaciente);
+            Paciente paciente = pacienteService.updatePaciente(cpf, data);
+            return ResponseEntity.status(HttpStatus.OK).body(paciente);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (Exception e) {
