@@ -6,6 +6,7 @@ import com.project.mindly.dtos.profissional.ProfissionalDto;
 import com.project.mindly.dtos.profissional.ProfissionalDtoPatch;
 import com.project.mindly.repository.ProfissionalRepository;
 import com.project.mindly.service.ProfissionalService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,19 +58,29 @@ public class ProfissionalController {
 
     }
 
-    //@PatchMapping("/{cpf}")
-    //public ResponseEntity<Profissional> updateProfissional(@RequestBody @Valid ProfissionalDtoPatch data,
-                                                          // @PathVariable @Valid String cpf) {
+    @PatchMapping("/{cpf}")
+    public ResponseEntity<Profissional> updateProfissional(@RequestBody @Valid ProfissionalDtoPatch data,
+                                                           @PathVariable @Valid String cpf) {
 
-    //}
-    //@DeleteMapping("/{cpf}")
-    //public ResponseEntity<Void> deleteProfissional(@PathVariable @Valid String cpf) {
-       // return profissionalRepository.findById(cpf)
-     //           .map(result -> {
-     //               profissionalRepository.delete(result);
-    //                return ResponseEntity.status(HttpStatus.NO_CONTENT).<Void>build();
-    //            })
-       //         .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-   // }
+        try{
+            Profissional profissional = profissionalService.updateProfissional(cpf,data);
+            return ResponseEntity.status(HttpStatus.OK).body(profissional);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            logger.error("Ocorreu um error inesperado", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/{cpf}")
+    public ResponseEntity<String> deleteProfissional(@PathVariable @Valid String cpf) {
+        try {
+            profissionalService.deleteProfissional(cpf);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
 }

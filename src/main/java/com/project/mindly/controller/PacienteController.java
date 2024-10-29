@@ -56,8 +56,6 @@ public class PacienteController {
         }
     }
 
-
-
     @PatchMapping("/{cpf}")
     public ResponseEntity<Paciente> updatePaciente(@RequestBody @Valid PacienteDtoPatch data,
                                                    @PathVariable @Valid String cpf) {
@@ -71,7 +69,6 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
     @DeleteMapping("/{cpf}")
     public ResponseEntity<String> deletePaciente(@PathVariable @Valid String cpf) {

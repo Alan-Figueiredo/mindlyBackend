@@ -49,20 +49,12 @@ public class SessaoService {
 
     public Sessao saveSessao(SessaoDto data) {
 
-        Paciente cpfPaci = pacienteRepository.findByCpfPaciente(data.cpf_paciente());
-        if (cpfPaci == null) {
-            throw new EntityNotFoundException("Paciente não encontrado com CPF: " + data.cpf_paciente());
-        }
-
-        Profissional cpfProf = profissionalRepository.findByCpfProf(data.cpf_prof());
-        if (cpfProf == null) {
-            throw new EntityNotFoundException("Paciente não encontrado com CPF: " + data.cpf_paciente());
-        }
-
-        Agendamento idAgenda = agendamentoRepository.findByIdAgendamento(data.id_agendamento());
-        if (idAgenda == null) {
-            throw new EntityNotFoundException("Paciente não encontrado com CPF: " + data.id_agendamento());
-        }
+        Paciente cpfPaci = pacienteRepository.findById(data.cpf_paciente())
+                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com CPF: " + data.cpf_paciente()));
+        Profissional cpfProf = profissionalRepository.findById(data.cpf_prof())
+                .orElseThrow(() -> new EntityNotFoundException("Profissional não encontrado com CPF: " + data.cpf_prof()));
+        Agendamento idAgenda = agendamentoRepository.findById(data.id_agendamento())
+                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com CPF: " + data.id_agendamento()));
 
         Sessao sessao = new Sessao();
         sessao.setAgendamentoSessao(idAgenda);
@@ -96,7 +88,7 @@ public class SessaoService {
 
     public void deleteSessao(int id) {
         Sessao sessao = sessaoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Agendamento não encontrado com ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Sessao não encontrado com ID: " + id));
         sessaoRepository.delete(sessao);
     }
 
