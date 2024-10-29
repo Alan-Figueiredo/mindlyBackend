@@ -78,26 +78,6 @@ SELECT
 FROM
     `tb_profissional`;
 
-
-CREATE OR REPLACE VIEW `vw_agendamentos_profissional` AS
-SELECT
-    `tb_agendamento`.`cpf_paciente` AS `cpf_paciente`,
-    `tb_paciente`.`nome_paciente` AS `nome_paciente`,
-    `tb_paciente`.`email_paciente` AS `email_paciente`,
-    `tb_paciente`.`telefone_paciente` AS `telefone_paciente`,
-    `tb_agendamento`.`data_agendamento` AS `data_agendamento`,
-    `tb_agendamento`.`hora_inicio` AS `hora_inicio`,
-    `tb_agendamento`.`duracao` AS `duracao`,
-    `tb_agendamento`.`link_video` AS `link_video`,
-    `tb_agendamento`.`lembrete_enviado` AS `lembrete_enviado`,
-    `tb_agendamento`.`observacoes` AS `observacoes`,
-    `tb_agendamento`.`status` AS `status`
-FROM
-    `tb_agendamento`
-        JOIN
-    `tb_paciente` ON `tb_agendamento`.`cpf_paciente` = `tb_paciente`.`cpf_paciente`;
-
-
 CREATE OR REPLACE VIEW `vw_perfil_paciente_profissional` AS
 SELECT
     `cpf_paciente`,

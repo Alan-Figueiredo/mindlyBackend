@@ -2,8 +2,8 @@ package com.project.mindly.controller;
 
 
 import com.project.mindly.model.paciente.Paciente;
-import com.project.mindly.model.paciente.PacienteDto;
-import com.project.mindly.model.paciente.PacienteDtoPatch;
+import com.project.mindly.dtos.paciente.PacienteDto;
+import com.project.mindly.dtos.paciente.PacienteDtoPatch;
 import com.project.mindly.service.PacienteService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -31,9 +31,9 @@ public class PacienteController {
 
     @GetMapping
     public List<Paciente> findAllPaciente() {
-        List<Paciente> pacientes = pacienteService.findAllPaciente();
-        logger.info("Total de pacientes retornados: {}", pacientes.size());
-        return pacientes;
+        List<Paciente> paciente = pacienteService.findAllPaciente();
+        logger.info("Total de pacientes retornados: {}", paciente.size());
+        return paciente;
     }
 
     @GetMapping("/{cpf}")
@@ -43,7 +43,7 @@ public class PacienteController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @PostMapping("/create") // método base para replicar nos outros
+    @PostMapping("/create")
     public ResponseEntity<Paciente> createPaciente(@RequestBody @Valid PacienteDto data) {
         try {
             Paciente paciente = pacienteService.savePaciente(data);

@@ -1,4 +1,4 @@
-package com.project.mindly.model.sessao;
+package com.project.mindly.dtos.sessao;
 
 import java.time.LocalDate;
 

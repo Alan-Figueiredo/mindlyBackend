@@ -2,7 +2,7 @@ package com.project.mindly.controller;
 
 
 import com.project.mindly.model.agendamento.Agendamento;
-import com.project.mindly.model.agendamento.AgendamentoDto;
+import com.project.mindly.dtos.agendamento.AgendamentoDto;
 import com.project.mindly.model.paciente.Paciente;
 import com.project.mindly.model.profissional.Profissional;
 import com.project.mindly.repository.AgendamentoRepository;

@@ -2,7 +2,7 @@ package com.project.mindly.controller;
 
 
 import com.project.mindly.model.agenda.Agenda;
-import com.project.mindly.model.agenda.AgendaDto;
+import com.project.mindly.dtos.agenda.AgendaDto;
 import com.project.mindly.model.profissional.Profissional;
 import com.project.mindly.repository.AgendaRepository;
 import com.project.mindly.repository.ProfissionalRepository;

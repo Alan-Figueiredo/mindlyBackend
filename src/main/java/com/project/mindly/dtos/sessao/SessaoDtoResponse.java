@@ -1,6 +1,6 @@
-package com.project.mindly.model.sessao;
+package com.project.mindly.dtos.sessao;
 
-import com.project.mindly.model.agendamento.AgendamentoDtoResponse;
+import com.project.mindly.dtos.agendamento.AgendamentoDtoResponse;
 
 import java.time.LocalDate;
 

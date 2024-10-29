@@ -1,9 +1,8 @@
 package com.project.mindly.controller;
 
 import com.project.mindly.model.sessao.Sessao;
-import com.project.mindly.model.sessao.SessaoDto;
-import com.project.mindly.model.sessao.SessaoDtoResponse;
-import com.project.mindly.service.PacienteService;
+import com.project.mindly.dtos.sessao.SessaoDto;
+import com.project.mindly.dtos.sessao.SessaoDtoResponse;
 import com.project.mindly.service.SessaoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;

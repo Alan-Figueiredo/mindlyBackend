@@ -1,12 +1,12 @@
 package com.project.mindly.service;
 
 import com.project.mindly.model.agendamento.Agendamento;
-import com.project.mindly.model.agendamento.AgendamentoDtoResponse;
+import com.project.mindly.dtos.agendamento.AgendamentoDtoResponse;
 import com.project.mindly.model.paciente.Paciente;
 import com.project.mindly.model.profissional.Profissional;
 import com.project.mindly.model.sessao.Sessao;
-import com.project.mindly.model.sessao.SessaoDto;
-import com.project.mindly.model.sessao.SessaoDtoResponse;
+import com.project.mindly.dtos.sessao.SessaoDto;
+import com.project.mindly.dtos.sessao.SessaoDtoResponse;
 import com.project.mindly.repository.AgendamentoRepository;
 import com.project.mindly.repository.PacienteRepository;
 import com.project.mindly.repository.ProfissionalRepository;

@@ -1,4 +1,6 @@
-package com.project.mindly.model.agendamento;
+package com.project.mindly.dtos.agendamento;
+
+import com.project.mindly.model.agendamento.AgendamentoStatus;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

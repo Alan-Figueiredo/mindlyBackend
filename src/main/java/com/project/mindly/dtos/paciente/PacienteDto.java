@@ -1,4 +1,4 @@
-package com.project.mindly.model.paciente;
+package com.project.mindly.dtos.paciente;
 import java.time.LocalDate;
 
 public record PacienteDto(String cpf_paciente, String nome_paciente, String email_paciente , String senha,

@@ -1,4 +1,4 @@
-package com.project.mindly.model.paciente;
+package com.project.mindly.dtos.paciente;
 
 import java.time.LocalDate;
 
