@@ -1,5 +1,6 @@
 package com.project.mindly.service;
 
+import com.project.mindly.dtos.agendamento.AgendamentoConfirmeDto;
 import com.project.mindly.dtos.agendamento.AgendamentoDto;
 import com.project.mindly.model.agendamento.Agendamento;
 import com.project.mindly.model.paciente.Paciente;
@@ -87,5 +88,12 @@ public class AgendamentoService {
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Agendamento não encontrado com o ID: " + id));
         agendamentoRepository.delete(agendamento);
+    }
+
+    public Agendamento confirmeAgendamento (AgendamentoConfirmeDto data ) {
+        Agendamento agendamento = agendamentoRepository.findById(data.idAgendamento())
+                .orElseThrow(()-> new EntityNotFoundException("Agendamento não encontrado com o ID: " + data.idAgendamento()));
+        agendamento.setStatus(data.status());
+        return agendamentoRepository.save(agendamento);
     }
 }

@@ -1,6 +1,7 @@
 package com.project.mindly.controller;
 
 
+import com.project.mindly.dtos.agendamento.AgendamentoConfirmeDto;
 import com.project.mindly.model.agendamento.Agendamento;
 import com.project.mindly.dtos.agendamento.AgendamentoDto;
 import com.project.mindly.model.paciente.Paciente;
@@ -87,6 +88,19 @@ public class AgendamentoController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("confirmacao")
+    public ResponseEntity<Agendamento> confirmeAgendamento(@RequestBody @Valid AgendamentoConfirmeDto data) {
+        try {
+            Agendamento agendamento = agendamentoService.confirmeAgendamento(data);
+            return ResponseEntity.status(HttpStatus.OK).body(agendamento);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            logger.error("Ocorreu um erro inesperado", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
