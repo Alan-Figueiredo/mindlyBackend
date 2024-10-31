@@ -27,7 +27,7 @@ public class SessaoService {
     private final ProfissionalRepository profissionalRepository;
     private final AgendamentoRepository agendamentoRepository;
 
-    @Autowired
+
     public SessaoService(SessaoRepository sessaoRepository,
                          PacienteRepository pacienteRepository,
                          ProfissionalRepository profissionalRepository, AgendamentoRepository agendamentoRepository) {
@@ -84,7 +84,6 @@ public class SessaoService {
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Sessao não encontrado com o ID: " + id));
     }
-
 
     public void deleteSessao(int id) {
         Sessao sessao = sessaoRepository.findById(id)

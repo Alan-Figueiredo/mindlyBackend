@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,23 +22,23 @@ import java.util.List;
 public class PacienteController {
 
 
-    private final PacienteService pacienteService;
     private static final Logger logger = LoggerFactory.getLogger(PacienteController.class);
+    private final PacienteService pacienteService;
 
-
+    @Autowired
     public PacienteController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
     }
 
     @GetMapping
-    public List<Paciente> findAllPaciente() {
+    public List<Paciente> getAllPaciente() {
         List<Paciente> paciente = pacienteService.findAllPaciente();
         logger.info("Total de pacientes retornados: {}", paciente.size());
         return paciente;
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<Paciente> findByIdPaciente(@PathVariable @Valid String cpf) {
+    public ResponseEntity<Paciente> getByIdPaciente(@PathVariable @Valid String cpf) {
         return pacienteService.findPacienteById(cpf)
                 .map( result -> ResponseEntity.status(HttpStatus.OK).body(result))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

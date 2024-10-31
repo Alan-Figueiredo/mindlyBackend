@@ -17,19 +17,18 @@ public class ProfissionalService {
 
     private final ProfissionalRepository profissionalRepository;
 
-    @Autowired
+
     public ProfissionalService(ProfissionalRepository profissionalRepository) {
         this.profissionalRepository = profissionalRepository;
     }
 
-
-    public List<Profissional> getAllProfissional() {
+    public List<Profissional> findAllProfissional() {
         return profissionalRepository.findAll();
     }
 
-    public Optional<Profissional> getProfissionalById(String id) {
-        return Optional.ofNullable(profissionalRepository.findById(id))
-                .orElseThrow(()-> new EntityNotFoundException("Profissional não encontrado com  o CPF: "+ id));
+    public Optional<Profissional> findProfissionalById(String cpf) {
+        return Optional.ofNullable(profissionalRepository.findById(cpf))
+                .orElseThrow(()-> new EntityNotFoundException("Profissional não encontrado com  o CPF: "+ cpf));
     }
 
     public Profissional saveProfissional (ProfissionalDto data) {
@@ -40,7 +39,7 @@ public class ProfissionalService {
         profissional.setEmailProf(data.email());
         profissional.setSenha(data.senha());
         profissional.setDescProf(data.descricao());
-        profissional.setEspecialidade(data.especialidade());
+        profissional.setAbordagemTeorica(data.abordagemTeorica());
         profissional.setEnderecoProf(data.endereco());
         profissional.setTelefoneProf(data.tel());
         return profissionalRepository.save(profissional);
@@ -54,7 +53,7 @@ public class ProfissionalService {
         profissional.setEmailProf(data.email());
         profissional.setSenha(data.senha());
         profissional.setDescProf(data.descricao());
-        profissional.setEspecialidade(data.especialidade());
+        profissional.setAbordagemTeorica(data.abordagemTeorica());
         profissional.setEnderecoProf(data.endereco());
         profissional.setTelefoneProf(data.tel());
         return profissionalRepository.save(profissional);

@@ -4,12 +4,12 @@ package com.project.mindly.controller;
 import com.project.mindly.model.profissional.Profissional;
 import com.project.mindly.dtos.profissional.ProfissionalDto;
 import com.project.mindly.dtos.profissional.ProfissionalDtoPatch;
-import com.project.mindly.repository.ProfissionalRepository;
 import com.project.mindly.service.ProfissionalService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,24 +22,24 @@ import java.util.List;
 public class ProfissionalController {
 
 
-    private final ProfissionalService profissionalService;
     private static final Logger logger = LoggerFactory.getLogger(ProfissionalController.class);
+    private final ProfissionalService profissionalService;
 
+    @Autowired
     public ProfissionalController(ProfissionalService profissionalService) {
         this.profissionalService = profissionalService;
     }
 
-
     @GetMapping
     public List<Profissional> getProfissionalAll() {
-        List<Profissional> profissional = profissionalService.getAllProfissional();
+        List<Profissional> profissional = profissionalService.findAllProfissional();
         logger.info("Total Profissionals : " + profissional.size());
         return profissional;
     }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<Profissional> getByCpfProfissional(@PathVariable @Valid String cpf) {
-        return profissionalService.getProfissionalById(cpf)
+        return profissionalService.findProfissionalById(cpf)
                 .map(result -> ResponseEntity.status(HttpStatus.OK).body(result))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

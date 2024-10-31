@@ -6,7 +6,7 @@ crp VARCHAR(10) NOT NULL UNIQUE,
 email_prof VARCHAR(155) NOT NULL UNIQUE,
 senha VARCHAR(255) NOT NULL,
 descricao_prof VARCHAR(500),
-especialidade VARCHAR(255),
+abordagem_teorica VARCHAR(255),
 endereco_prof VARCHAR(255),
 telefone_prof VARCHAR(20),
 PRIMARY KEY (cpf_prof)
@@ -71,7 +71,7 @@ SELECT
     `tb_profissional`.`cpf_prof` AS `cpf_prof`,
     `tb_profissional`.`nome_prof` AS `nome_prof`,
     `tb_profissional`.`email_prof` AS `email_prof`,
-    `tb_profissional`.`especialidade` AS `especialidade`,
+    `tb_profissional`.`abordagem_teorica` AS `abordagem_teorica`,
     `tb_profissional`.`descricao_prof` AS `descricao_prof`,
     `tb_profissional`.`telefone_prof` AS `telefone_prof`,
     `tb_profissional`.`crp` AS `crp`
@@ -130,3 +130,17 @@ WHERE
 ORDER BY
     a.data_agendamento, a.hora_inicio;
 
+
+DELIMITER //
+CREATE TRIGGER trg_link_update
+    BEFORE UPDATE ON `tb_agendamento`
+    FOR EACH ROW
+BEGIN
+    IF NEW.link_video IS NOT NULL AND OLD.link_video IS NULL THEN
+        IF OLD.status <> 'APROVADO' THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'O link de chamada de vídeo só pode ser adicionado para agendamentos aprovados.';
+        END IF;
+    END IF;
+END //
+DELIMITER ;

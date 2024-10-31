@@ -16,6 +16,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +29,15 @@ import java.util.List;
 @RequestMapping("/agendamento")
 public class AgendamentoController {
 
-    private final AgendamentoService agendamentoService;
-    private final ProfissionalService profissionalService;
-    private final PacienteService pacienteService;
+
     private static final Logger logger = LoggerFactory.getLogger(AgendamentoController.class);
+    private final AgendamentoService agendamentoService;
 
-    public AgendamentoController(AgendamentoService agendamentoService, ProfissionalService profissionalService, PacienteService pacienteService) {
+    @Autowired
+    public AgendamentoController(AgendamentoService agendamentoService) {
         this.agendamentoService = agendamentoService;
-        this.profissionalService = profissionalService;
-        this.pacienteService = pacienteService;
-    }
 
+    }
 
     @GetMapping
     public List<Agendamento> getAllAgendamento() {

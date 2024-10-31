@@ -23,8 +23,7 @@ public class AgendamentoService {
     private final PacienteRepository pacienteRepository;
     private final ProfissionalRepository profissionalRepository;
 
-    @Autowired
-    public AgendamentoService(AgendamentoRepository agendamentoRepository,
+     AgendamentoService(AgendamentoRepository agendamentoRepository,
                               PacienteRepository pacienteRepository,
                               ProfissionalRepository profissionalRepository) {
         this.agendamentoRepository = agendamentoRepository;
