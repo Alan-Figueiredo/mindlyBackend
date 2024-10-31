@@ -1,4 +1,4 @@
-package com.project.mindly.controller;
+package com.project.mindly.controller.view;
 
 import com.project.mindly.model.view.ProfissionalPublicoView;
 import com.project.mindly.service.ProfissionalPublicoService;
@@ -29,14 +29,14 @@ public class ProfissionalPublicoController {
     }
 
     @GetMapping
-    public List<ProfissionalPublicoView> getProfissionalPublicoViewAll() {
+    public List<ProfissionalPublicoView> getProfissionalPublicoAll() {
         List<ProfissionalPublicoView> profissionalPublicoView = profissionalPublicoService.findProfissionalPublicoAll();
-        logger.info("ProfissionalPublicoView: {}", profissionalPublicoView);
+        logger.info("Profissionais: {}", profissionalPublicoView);
         return profissionalPublicoView;
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<ProfissionalPublicoView> getProfissionalPublicoViewById(@PathVariable @Valid String cpf) {
+    public ResponseEntity<ProfissionalPublicoView> getProfissionalPublicoById(@PathVariable @Valid String cpf) {
         return profissionalPublicoService.findrofissionalPublicoByCpf(cpf)
                 .map(result -> ResponseEntity.status(HttpStatus.OK).body(result))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
