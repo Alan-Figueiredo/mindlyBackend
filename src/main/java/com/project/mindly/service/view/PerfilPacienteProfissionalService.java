@@ -1,7 +1,7 @@
-package com.project.mindly.service;
+package com.project.mindly.service.view;
 
 import com.project.mindly.model.view.PerfilPacienteProfissionalView;
-import com.project.mindly.repository.PerfilPacienteProfissionalRepository;
+import com.project.mindly.repository.view.PerfilPacienteProfissionalRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 

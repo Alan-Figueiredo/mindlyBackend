@@ -1,8 +1,8 @@
-package com.project.mindly.service;
+package com.project.mindly.service.view;
 
 
 import com.project.mindly.model.view.ProfissionalPublicoView;
-import com.project.mindly.repository.ProfissionalPublicoRepository;
+import com.project.mindly.repository.view.ProfissionalPublicoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,8 @@ public class ProfissionalPublicoService {
         return profissionalPublicoRepository.findAll();
     }
 
-    public Optional<ProfissionalPublicoView> findrofissionalPublicoByCpf(String cpf) {
-        return Optional.ofNullable(profissionalPublicoRepository.findById(cpf)
-                .orElseThrow(()-> new EntityNotFoundException("Profissional não encontrado com  o CPF: "+ cpf)));
+    public Optional<ProfissionalPublicoView> findProfissionalPublicoByCrp(String crp) {
+        return Optional.ofNullable(profissionalPublicoRepository.findById(crp)
+                .orElseThrow(()-> new EntityNotFoundException("Profissional não encontrado com  o CRP: "+ crp)));
     }
 }
