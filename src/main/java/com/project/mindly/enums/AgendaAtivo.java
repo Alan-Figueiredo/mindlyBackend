@@ -1,4 +1,4 @@
-package com.project.mindly.model.agenda;
+package com.project.mindly.enums;
 
 public enum AgendaAtivo {
 

@@ -1,4 +1,4 @@
-package com.project.mindly.model.userRole;
+package com.project.mindly.enums;
 
 public enum UserRoles {
 

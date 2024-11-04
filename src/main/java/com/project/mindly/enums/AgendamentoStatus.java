@@ -1,4 +1,4 @@
-package com.project.mindly.model.agendamento;
+package com.project.mindly.enums;
 
 public enum AgendamentoStatus {
 
