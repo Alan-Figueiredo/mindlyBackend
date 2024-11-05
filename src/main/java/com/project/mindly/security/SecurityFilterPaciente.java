@@ -17,12 +17,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class SecurityFilter extends OncePerRequestFilter {
+public class SecurityFilterPaciente extends OncePerRequestFilter {
 
     private final TokenService tokenService;
     private final PacienteRepository pacienteRepository;
 
-    public SecurityFilter(TokenService tokenService, PacienteRepository pacienteRepository) {
+    public SecurityFilterPaciente(TokenService tokenService, PacienteRepository pacienteRepository) {
         this.tokenService = tokenService;
         this.pacienteRepository = pacienteRepository;
     }
